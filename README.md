@@ -28,7 +28,7 @@ To get a local copy up and running follow these simple example steps.
    ```
 2. Navigate to the repo and run it with Python
    ```sh
-   python3 main.py
+   python main.py
    ```
 </br>
 
@@ -36,7 +36,7 @@ To get a local copy up and running follow these simple example steps.
   ## Roadmap
   - [ ] Add Changelog
   - [ ] Fix small GUI errors
-  - [ ] Add better Error Handling
+  - [x] Add better Error Handling
   - [ ] Add a "Programmer" section
 
 </br>
