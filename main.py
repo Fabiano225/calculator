@@ -7,7 +7,7 @@ class Calculator(QMainWindow):
     def __init__(self):
         super().__init__()
 
-        self.setWindowTitle("Rechner")
+        self.setWindowTitle("Calculator")
         self.setMinimumSize(QSize(320, 500))
         self.setStyleSheet("background-color: #1e1e1e;")
 
@@ -110,15 +110,24 @@ class Calculator(QMainWindow):
         self.display.setFont(font)
 
     def on_button_click(self, text):
-        if text.isdigit() or text == ".":
+        if text.isdigit():
             if self.reset_next:
                 self.current_input = text
                 self.reset_next = False
             else:
                 self.current_input += text
             self.display.setText(self.current_input)
+        
+        elif text == ".":
+            if "." not in self.current_input:
+                if not self.current_input:
+                    self.current_input = "0."
+                else:
+                    self.current_input += "."
+                self.display.setText(self.current_input)
+        
             self.adjust_font_size()
-
+        
         elif text in ["+", "-", "*", "/"]:
             if self.current_input:
                 self.last_number = self.current_input
@@ -178,7 +187,7 @@ class Calculator(QMainWindow):
                     self.current_input = str(float(self.current_input) / 100)
                 self.display.setText(self.current_input)
             except Exception:
-                self.display.setText("Error")
+                self.display.setText("0")
                 self.current_input = ""
             self.adjust_font_size()
 
@@ -188,15 +197,18 @@ class Calculator(QMainWindow):
                 self.display.setText(result)
                 self.current_input = result
             except Exception:
-                self.display.setText("Error")
+                self.display.setText("Division by 0 not possible")
                 self.current_input = ""
             self.adjust_font_size()
 
         elif text == "x²":
             try:
-                result = str(float(self.current_input) ** 2)
-                self.display.setText(result)
-                self.current_input = result
+                if self.current_input:
+                    result = str(float(self.current_input) ** 2)
+                    self.display.setText(result)
+                    self.current_input = result
+                else:
+                    self.current_input = ""
             except Exception:
                 self.display.setText("Error")
                 self.current_input = ""
@@ -204,9 +216,12 @@ class Calculator(QMainWindow):
 
         elif text == "√x":
             try:
-                result = str(float(self.current_input) ** 0.5)
-                self.display.setText(result)
-                self.current_input = result
+                if self.current_input:
+                    result = str(float(self.current_input) ** 0.5)
+                    self.display.setText(result)
+                    self.current_input = result
+                else:
+                    self.current_input = ""
             except Exception:
                 self.display.setText("Error")
                 self.current_input = ""
